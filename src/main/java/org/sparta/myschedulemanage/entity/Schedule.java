@@ -6,6 +6,7 @@ import org.sparta.myschedulemanage.dto.ScheduleRequestDto;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @Table(name = "schedule")
