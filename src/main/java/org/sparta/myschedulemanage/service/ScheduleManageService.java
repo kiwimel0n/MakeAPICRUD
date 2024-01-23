@@ -5,6 +5,7 @@ import org.sparta.myschedulemanage.dto.ScheduleRequestDto;
 import org.sparta.myschedulemanage.dto.ScheduleResponseDto;
 import org.sparta.myschedulemanage.entity.Schedule;
 import org.sparta.myschedulemanage.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,6 @@ import java.util.List;
 public class ScheduleManageService {
 
     private final ScheduleRepository scheduleRepository;
-
 
     /**
      *  할일 정보를 생성합니다.
@@ -72,8 +72,6 @@ public class ScheduleManageService {
         return createResponse(schedule);
     }
 
-
-
     /**
      * 선택한 id의 정보 삭제
      * @param id 삭제할 할 일 ID
@@ -96,8 +94,7 @@ public class ScheduleManageService {
      */
     private Schedule findScheduleByIdIfExists(Long id) {
         return scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("선택한 일정은 존재하지 않습니다.")
-        );
+                .orElseThrow(() -> new IllegalArgumentException("해당 정보를 찾을 수 없어요!"));
     }
 
     /**
@@ -106,8 +103,8 @@ public class ScheduleManageService {
      * @param storedPassword 저장된 패스워드
      */
     private void checkPasswordValidity(int inputPassword, int storedPassword) {
-        boolean isCorrect = inputPassword == storedPassword;
-        if (!isCorrect) {
+        boolean isNotValid = inputPassword != storedPassword;
+        if (isNotValid) {
             throw new IllegalArgumentException("비밀번호가 틀려요!");
         }
     }

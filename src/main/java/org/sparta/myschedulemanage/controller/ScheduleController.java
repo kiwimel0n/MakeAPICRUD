@@ -10,13 +10,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     private final ScheduleManageService scheduleManageService;
 
-    @PostMapping("/schedule")
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto){
+    @PostMapping("/create")
+    public ScheduleResponseDto createSchedule(
+            @RequestBody ScheduleRequestDto scheduleRequestDto){
         return scheduleManageService.createSchedule(scheduleRequestDto);
     }
 
