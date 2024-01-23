@@ -6,11 +6,10 @@ import org.sparta.myschedulemanage.dto.ScheduleRequestDto;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @Table(name = "schedule")
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule extends Timestamped{
 
     @Id

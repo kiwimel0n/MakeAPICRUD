@@ -12,11 +12,8 @@ public record ScheduleRequestDto(
         String contents,
         String manager,
         int password
-){
-
+) {
 }
-
-
 /*@value
 public class ScheduleRequestDto(){
     String taskName;

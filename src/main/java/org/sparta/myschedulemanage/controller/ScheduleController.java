@@ -20,25 +20,27 @@ public class ScheduleController {
         return scheduleManageService.createSchedule(scheduleRequestDto);
     }
 
-    @GetMapping("/schedules")
+    @GetMapping("/list-all")
     public List<ScheduleResponseDto> getSchedules() {
         return scheduleManageService.getSchedules();
     }
 
-
-    @GetMapping("/schedule/{id}")
-    public List<ScheduleResponseDto> getScheduleById(@PathVariable Long id) {
+    @GetMapping("/list/{id}")
+    public List<ScheduleResponseDto> getScheduleById(@PathVariable final Long id) {
         return scheduleManageService.getScheduleInfo(id);
     }
 
-    @PutMapping("/schedule/{id}")
-    public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto scheduleRequestDto){
+    @PutMapping("/update/{id}")
+    public ScheduleResponseDto updateSchedule(
+            @PathVariable final Long id,
+            @RequestBody final ScheduleRequestDto scheduleRequestDto
+    ){
         return scheduleManageService.updateSchedule(id, scheduleRequestDto);
     }
 
 
-    @DeleteMapping("/schedule/{id}")
-    public Long deleteSchedule(@PathVariable Long id, @RequestParam int password){
+    @DeleteMapping("/delete/{id}/{password}")
+    public String deleteSchedule(@PathVariable final Long id, @PathVariable final int password) {
         return scheduleManageService.deleteSchedule(id, password);
     }
 

@@ -63,13 +63,13 @@ public class ScheduleManageService {
      * @return 수정된 할 일 정보 ID
      */
     @Transactional
-    public Long updateSchedule(Long id, ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = findScheduleByIdIfExists(id);
 
         checkPasswordValidity(requestDto.password(), schedule.getPassword());
 
         schedule.update(requestDto);
-        return schedule.getId();
+        return createResponse(schedule);
     }
 
 
@@ -81,13 +81,12 @@ public class ScheduleManageService {
      * @return 삭제된 할일 ID
      */
     @Transactional
-    public Long deleteSchedule(Long id, int password) {
+    public String deleteSchedule(Long id, int password) {
         Schedule schedule = findScheduleByIdIfExists(id);
-
         checkPasswordValidity(password, schedule.getPassword());
 
         scheduleRepository.delete(schedule);
-        return schedule.getId();
+        return "정상적으로 삭제가 되었습니다.";
     }
 
     /**
@@ -113,9 +112,6 @@ public class ScheduleManageService {
         }
     }
 
-
-
-    //의존성 주입
     private ScheduleResponseDto createResponse(Schedule schedule) {
         return ScheduleResponseDto.builder()
                 .taskName(schedule.getTaskName())
