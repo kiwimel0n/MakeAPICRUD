@@ -10,23 +10,24 @@ import org.sparta.myschedulemanage.dto.ScheduleRequestDto;
 @Builder
 @AllArgsConstructor
 @Table(name = "schedule")
-@NoArgsConstructor
-public class Schedule {
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+public class Schedule extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "task_name", nullable = false)
     private String taskName;
+
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
+
     @Column(name = "manager", nullable = false)
     private String manager;
+
     @Column(name = "password", nullable = false)
     private int password;
-
-
-
 
     public static Schedule of(ScheduleRequestDto requestDto) {
         return Schedule.builder()
@@ -38,7 +39,9 @@ public class Schedule {
     }
 
     public void update(ScheduleRequestDto requestDto) {
-        this.taskName = requestDto.taskName();
+        if (requestDto.taskName() != null) {
+            this.taskName = requestDto.taskName();
+        }
         this.contents = requestDto.contents();
         this.manager = requestDto.manager();
     }
